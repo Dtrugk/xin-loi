@@ -1,0 +1,533 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Gu của anh là em. Em có tin anh không?">
+<meta property="og:title" content="Anh xin lỗi em">
+<meta property="og:description" content="Gu của anh là em. Em có tin anh không?">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#fbe4ea" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1d0a12" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 88C20 65 5 48 5 30a22 22 0 0 1 45-8 22 22 0 0 1 45 8c0 18-15 35-45 58z' fill='%23dc2c58'/%3E%3C/svg%3E">
+<style>
+:root { color-scheme: light; padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+body { margin: 0; }
+img { max-width: 100%; }
+[hidden] { display: none !important; }
+</style>
+<title>Anh Xin Lỗi Em</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,600;0,800;1,400&family=Sriracha&display=swap">
+<style>
+/* Layout: a wall of drifting apology lines behind one formal "đơn xin lỗi" sheet; the "Không tin" button escapes across the viewport */
+:root {
+  --bg: #fbe4ea;
+  --wall: #f2bccb;
+  --paper: #fffafb;
+  --ink: #3a1323;
+  --muted: #86576a;
+  --line: #e9c6d1;
+  --accent: #dc2c58;
+  --accent-ink: #ffffff;
+  --seal: #c8162f;
+  --no-bg: #efe0e5;
+  --no-ink: #6c5260;
+  --shadow: 58 19 35;
+  --seal-blend: multiply;
+  --f-display: "Sriracha", "Comic Sans MS", cursive;
+  --f-body: "Be Vietnam Pro", "Segoe UI", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #1d0a12; --wall: #3b1626; --paper: #2a1019; --ink: #fbe4ea; --muted: #c49aaa;
+    --line: #4a2234; --accent: #ff5a80; --accent-ink: #1d0a12; --seal: #ff5065;
+    --no-bg: #3b2029; --no-ink: #d8bdc6; --shadow: 0 0 0; --seal-blend: normal;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #1d0a12; --wall: #3b1626; --paper: #2a1019; --ink: #fbe4ea; --muted: #c49aaa;
+  --line: #4a2234; --accent: #ff5a80; --accent-ink: #1d0a12; --seal: #ff5065;
+  --no-bg: #3b2029; --no-ink: #d8bdc6; --shadow: 0 0 0; --seal-blend: normal;
+  color-scheme: dark;
+}
+
+html { height: 100%; box-sizing: border-box; }
+body {
+  min-height: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  display: grid;
+  place-items: center;
+  padding-block: 28px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--f-body);
+  font-size: 1rem;
+  line-height: 1.55;
+  overflow-x: hidden;
+}
+
+/* ---------- the wall ---------- */
+.wall { position: fixed; inset: 0; overflow: hidden; z-index: 0; pointer-events: none; }
+.wall-inner {
+  position: absolute; inset: -35%;
+  display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: .3em;
+  transform: rotate(-9deg);
+  font: 800 clamp(1.35rem, 4.2vw, 2.6rem)/1.1 var(--f-body);
+  letter-spacing: -0.01em;
+}
+.row {
+  display: flex; width: max-content; white-space: nowrap;
+  color: var(--wall);
+  animation: slide var(--dur, 70s) linear infinite;
+}
+.row:nth-child(even) {
+  animation-direction: reverse;
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--wall);
+}
+@keyframes slide { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+#fx { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 25; pointer-events: none; }
+#safe {
+  position: fixed; visibility: hidden; pointer-events: none;
+  top: env(safe-area-inset-top, 0px); right: env(safe-area-inset-right, 0px);
+  bottom: env(safe-area-inset-bottom, 0px); left: env(safe-area-inset-left, 0px);
+}
+
+/* ---------- the đơn ---------- */
+.don {
+  position: relative; z-index: 1;
+  width: 100%; max-width: 34rem; box-sizing: border-box;
+  background: var(--paper);
+  border-radius: 4px;
+  padding: clamp(24px, 6vw, 44px) clamp(20px, 6vw, 48px);
+  box-shadow: 0 1px 0 rgb(var(--shadow) / .06), 0 28px 64px -24px rgb(var(--shadow) / .4);
+}
+.don p { margin: 0; }
+
+.quoc { display: grid; justify-items: center; gap: 2px; text-align: center; }
+.quoc .q1 { font-weight: 800; font-size: .76rem; letter-spacing: .07em; text-transform: uppercase; }
+.quoc .q2 { font-weight: 600; font-size: .86rem; }
+.quoc .rule { width: 9rem; max-width: 60%; height: 1px; background: var(--ink); margin-top: 6px; }
+
+.date { margin-top: 14px !important; text-align: right; font-style: italic; color: var(--muted); font-size: .85rem; text-wrap: balance; }
+.title { margin: 18px 0 0; text-align: center; font-weight: 800; font-size: 1.35rem; letter-spacing: .14em; text-transform: uppercase; text-wrap: balance; }
+.vv { text-align: center; color: var(--muted); font-size: .9rem; }
+.kg { margin-top: 20px !important; }
+.kg b { font-weight: 600; }
+.hero {
+  margin: 10px 0 0 !important;
+  font-family: var(--f-display);
+  color: var(--accent);
+  font-size: clamp(2.1rem, 8vw, 3.1rem);
+  line-height: 1.15;
+  text-wrap: balance;
+}
+
+.ask, .done { margin-top: 24px; padding-top: 20px; border-top: 1px dashed var(--line); }
+.ask { text-align: center; }
+.ask h2 { margin: 0 0 16px; font-size: 1.15rem; font-weight: 600; }
+.btns { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 14px; min-height: 3.5rem; }
+
+.btn {
+  font: 800 1.05rem/1 var(--f-body);
+  padding: .85em 1.6em;
+  border-radius: .7em;
+  cursor: pointer;
+  white-space: nowrap;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+.btn:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+#yes {
+  --grow: 1;
+  font-size: calc(1.05rem * var(--grow));
+  background: var(--accent);
+  color: var(--accent-ink);
+  border: 2px solid var(--ink);
+  box-shadow: 3px 3px 0 var(--ink);
+  transition: transform .12s, box-shadow .12s;
+}
+#yes:hover { transform: translate(-1px, -1px); box-shadow: 4px 4px 0 var(--ink); }
+#yes:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--ink); }
+#yes.nudge { animation: nudge 1.6s ease-in-out infinite; }
+@keyframes nudge {
+  0%, 100% { box-shadow: 3px 3px 0 var(--ink), 0 0 0 0 var(--accent); }
+  60% { box-shadow: 3px 3px 0 var(--ink), 0 0 0 10px transparent; }
+}
+#no {
+  background: var(--no-bg);
+  color: var(--no-ink);
+  border: 2px solid transparent;
+  touch-action: none;
+  user-select: none; -webkit-user-select: none; -webkit-touch-callout: none;
+}
+#no.loose {
+  position: fixed; z-index: 30; margin: 0;
+  box-shadow: 0 10px 24px -10px rgb(var(--shadow) / .5);
+  transition: left .2s cubic-bezier(.2, .9, .25, 1), top .2s cubic-bezier(.2, .9, .25, 1);
+}
+.hint { min-height: 1.5em; margin-top: 14px !important; color: var(--muted); font-size: .9rem; }
+
+.done h2 { margin: 0; font-family: var(--f-display); font-weight: 400; color: var(--accent); font-size: 2.2rem; line-height: 1.2; }
+.done #count { margin-top: 6px; }
+.done h3 { margin: 20px 0 0; font-size: .78rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+.dieu { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 4px; }
+.dieu b { font-weight: 800; }
+
+.sign { display: flex; justify-content: flex-end; margin-top: 26px; }
+.sign-box { position: relative; min-width: 11rem; text-align: center; }
+.sign-box .lbl { font-weight: 800; font-size: .78rem; letter-spacing: .08em; text-transform: uppercase; }
+.sign-box .name { font-family: var(--f-display); font-size: 2.4rem; line-height: 1.25; margin-top: 2px; }
+.sign-box .note { font-size: .8rem; font-style: italic; color: var(--muted); }
+
+.seal {
+  position: absolute; left: -4.4rem; top: -.4rem;
+  width: 7rem; height: 7rem; border-radius: 50%;
+  border: 3px solid var(--seal); color: var(--seal);
+  display: grid; place-content: center; justify-items: center; gap: 1px;
+  text-transform: uppercase; text-align: center; line-height: 1.1;
+  transform: rotate(-14deg);
+  opacity: .88; mix-blend-mode: var(--seal-blend);
+  animation: stamp .55s .35s cubic-bezier(.3, 1.4, .5, 1) both;
+}
+.seal::before { content: ""; position: absolute; inset: 6px; border: 1.5px solid var(--seal); border-radius: 50%; }
+.seal .s1 { font-weight: 800; font-size: 1.15rem; letter-spacing: .04em; }
+.seal .s2 { font-weight: 600; font-size: .62rem; letter-spacing: .14em; }
+.seal .s3 { font-size: .6rem; font-variant-numeric: tabular-nums; letter-spacing: .06em; }
+@keyframes stamp {
+  0% { transform: rotate(-14deg) scale(2.4); opacity: 0; }
+  100% { transform: rotate(-14deg) scale(1); opacity: .88; }
+}
+
+.again {
+  display: block; margin: 26px auto 0;
+  background: none; border: 0; padding: 6px 8px; cursor: pointer;
+  color: var(--muted); font: 600 .9rem var(--f-body);
+  text-decoration: underline; text-underline-offset: 3px;
+}
+.again:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .row, #yes.nudge, .seal { animation: none; }
+  #no.loose { transition: none; }
+}
+</style>
+
+</head>
+<body>
+
+<div class="wall" aria-hidden="true"><div class="wall-inner" id="wallInner"></div></div>
+<canvas id="fx" aria-hidden="true"></canvas>
+<div id="safe" aria-hidden="true"></div>
+
+<main class="don" lang="vi">
+  <header class="quoc">
+    <span class="q1">Cộng hòa tình yêu anh và em</span>
+    <span class="q2">Thương em – Nhường em – Chiều em</span>
+    <span class="rule"></span>
+  </header>
+
+  <p class="date" id="date">Ở đâu cũng nhớ em</p>
+  <h1 class="title">Đơn xin lỗi</h1>
+  <p class="vv">V/v: lỡ làm em giận</p>
+
+  <p class="kg">Kính gửi: <b id="to">Em</b>, người anh thương nhất.</p>
+  <p class="hero">Anh xin lỗi,<br>gu của anh là em.</p>
+
+  <section class="ask" id="ask">
+    <h2>Em có tin anh không?</h2>
+    <div class="btns" id="btns">
+      <button class="btn" id="yes" type="button">Tin</button>
+      <button class="btn" id="no" type="button">Không tin</button>
+    </div>
+    <p class="hint" id="hint" aria-live="polite"></p>
+  </section>
+
+  <section class="done" id="done" hidden>
+    <h2>Biết ngay mà!</h2>
+    <p id="count"></p>
+    <h3>Anh cam kết</h3>
+    <ol class="dieu">
+      <li><b>Điều 1.</b> Em luôn đúng.</li>
+      <li><b>Điều 2.</b> Nếu em sai, xem lại Điều 1.</li>
+      <li><b>Điều 3.</b> Trà sữa full topping, không đợi em nhắc.</li>
+    </ol>
+    <div class="sign">
+      <div class="sign-box">
+        <div class="seal" role="img" aria-label="Con dấu: em đã duyệt">
+          <span class="s2">Em đã</span>
+          <span class="s1">Duyệt</span>
+          <span class="s3" id="sealDate"></span>
+        </div>
+        <div class="lbl">Người làm đơn</div>
+        <div class="name">Anh</div>
+        <div class="note">(ký, ghi rõ: người yêu em)</div>
+      </div>
+    </div>
+    <button class="again" id="again" type="button">Đọc lại đơn</button>
+  </section>
+</main>
+
+<script>
+(() => {
+  const $ = (s) => document.querySelector(s);
+  const yes = $('#yes'), no = $('#no'), btns = $('#btns'), hint = $('#hint');
+  const ask = $('#ask'), done = $('#done'), safe = $('#safe'), wall = $('#wallInner');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)');
+  const PHRASE = 'Anh xin lỗi, gu của anh là em';
+  const THANKS = 'Cảm ơn em đã tin anh';
+
+  const labels = ['Không tin', 'Hông bấm được đâu', 'Chắc chưa em?', 'Nghĩ lại đi mà', 'Hụt rồi nè',
+    'Anh buồn đó nha', 'Bấm Tin đi em', 'Đuổi hoài vậy', 'Nút này hư rồi', 'Em mệt chưa?', 'Tin anh đi mà'];
+  const hints = [
+    [3, 'Gợi ý: nút “Tin” bấm được nè.'],
+    [6, 'Nút “Tin” to cỡ đó rồi mà em còn chưa bấm.'],
+    [10, 'Anh chờ em bấm “Tin” cả đêm cũng được.'],
+  ];
+
+  let tries = 0, lastFlee = 0, accepted = false;
+
+  /* date line, Vietnamese letter style */
+  const d = new Date();
+  $('#date').textContent = `Ở đâu cũng nhớ em, ngày ${d.getDate()} tháng ${d.getMonth() + 1} năm ${d.getFullYear()}`;
+
+  /* optional name: add #Linh (or #Ngọc-Anh) to the link */
+  function applyName() {
+    let raw = location.hash.slice(1);
+    try { raw = decodeURIComponent(raw); } catch (_) {}
+    raw = raw.normalize('NFC').replace(/[^\p{L}\p{M}\p{N}\- ]/gu, '').replace(/[-\s]+/g, ' ').trim().slice(0, 40);
+    $('#to').textContent = raw || 'Em';
+  }
+  applyName();
+  addEventListener('hashchange', applyName);
+
+  /* the wall of apologies, sized to the screen so phones only paint what they show */
+  const SEP = '  ♥  ';
+  let wallPhrase = PHRASE, wallSize = { rows: 0, reps: 0 };
+  function wallNeeds(phrase) {
+    const fs = parseFloat(getComputedStyle(wall).fontSize) || 24;
+    const probe = document.createElement('span');
+    probe.style.cssText = 'position:absolute;visibility:hidden;white-space:nowrap';
+    probe.textContent = phrase + SEP;
+    wall.appendChild(probe);
+    const unitW = probe.offsetWidth || fs * 0.55 * phrase.length;
+    probe.remove();
+    const span = innerWidth * 1.35 + innerHeight * 0.08 + 60; // row start to the far visible edge, after the tilt
+    return {
+      rows: Math.min(60, Math.ceil((innerHeight + innerWidth * 0.16) / (fs * 1.4)) + 3),
+      reps: Math.max(1, Math.ceil(span / unitW)),
+    };
+  }
+  function fillWall(phrase, size) {
+    wallPhrase = phrase;
+    wallSize = size || wallNeeds(phrase);
+    const unit = (phrase + SEP).repeat(wallSize.reps);
+    const frag = document.createDocumentFragment();
+    for (let i = 0; i < wallSize.rows; i++) {
+      const row = document.createElement('div');
+      row.className = 'row';
+      row.style.setProperty('--dur', (55 + (i * 37) % 45) + 's');
+      row.style.animationDelay = -((i * 13) % 50) + 's';
+      for (let k = 0; k < 2; k++) {
+        const s = document.createElement('span');
+        s.textContent = unit;
+        row.appendChild(s);
+      }
+      frag.appendChild(row);
+    }
+    wall.replaceChildren(frag);
+  }
+  fillWall(PHRASE);
+  // grow the wall only when the screen needs more (phone toolbars resize constantly)
+  function regrowWall() {
+    const n = wallNeeds(wallPhrase);
+    if (n.rows > wallSize.rows || n.reps > wallSize.reps) {
+      fillWall(wallPhrase, { rows: Math.max(n.rows, wallSize.rows), reps: Math.max(n.reps, wallSize.reps) });
+    }
+  }
+  document.fonts?.ready.then(regrowWall);
+  let wallTimer = 0;
+  addEventListener('resize', () => { clearTimeout(wallTimer); wallTimer = setTimeout(regrowWall, 250); });
+
+  /* the button that refuses to be clicked */
+  function bounds() {
+    const b = safe.getBoundingClientRect();
+    const m = 16, w = no.offsetWidth, h = no.offsetHeight;
+    return { minX: b.left + m, maxX: Math.max(b.left + m, b.right - m - w),
+             minY: b.top + m, maxY: Math.max(b.top + m, b.bottom - m - h), w, h, b };
+  }
+
+  function place(px, py) {
+    const { minX, maxX, minY, maxY, w, h, b } = bounds();
+    const yr = yes.getBoundingClientRect();
+    const want = Math.min(220, Math.min(b.width, b.height) * 0.35);
+    let best = null, bestScore = -Infinity;
+    for (let i = 0; i < 40; i++) {
+      const x = minX + Math.random() * (maxX - minX);
+      const y = minY + Math.random() * (maxY - minY);
+      const dist = Math.hypot(x + w / 2 - px, y + h / 2 - py);
+      const overlap = !(x + w + 14 < yr.left || x - 14 > yr.right || y + h + 14 < yr.top || y - 14 > yr.bottom);
+      const score = overlap ? dist * 0.05 : dist;
+      if (score > bestScore) { bestScore = score; best = { x, y }; }
+      if (!overlap && dist > want) break;
+    }
+    no.style.left = best.x + 'px';
+    no.style.top = best.y + 'px';
+  }
+
+  function flee(px, py) {
+    if (accepted) return;
+    tries++;
+    lastFlee = performance.now();
+    if (!no.classList.contains('loose')) {
+      const r = no.getBoundingClientRect();
+      no.style.left = r.left + 'px';
+      no.style.top = r.top + 'px';
+      no.classList.add('loose');
+      document.body.appendChild(no);
+      no.getBoundingClientRect(); // commit the start point so the jump animates
+    }
+    no.textContent = labels[1 + (tries - 1) % (labels.length - 1)];
+    yes.style.setProperty('--grow', (1 + Math.min(tries, 10) * 0.12).toFixed(2));
+    yes.classList.toggle('nudge', tries >= 3);
+    const h = hints.filter(([n]) => tries >= n).pop();
+    hint.textContent = h ? h[1] : '';
+    place(px, py);
+  }
+
+  // mouse: run away before the cursor arrives
+  document.addEventListener('pointermove', (e) => {
+    if (accepted || e.pointerType === 'touch') return;
+    const r = no.getBoundingClientRect();
+    const dx = Math.max(r.left - e.clientX, 0, e.clientX - r.right);
+    const dy = Math.max(r.top - e.clientY, 0, e.clientY - r.bottom);
+    if (Math.hypot(dx, dy) < 28 && performance.now() - lastFlee > 260) flee(e.clientX, e.clientY);
+  });
+  // touch / fast clicks: run away on press
+  no.addEventListener('pointerdown', (e) => { e.preventDefault(); flee(e.clientX, e.clientY); });
+  // phones: a finger landing near it is enough to scare it off
+  document.addEventListener('pointerdown', (e) => {
+    if (accepted || e.pointerType !== 'touch' || e.target === no) return;
+    const r = no.getBoundingClientRect();
+    const dx = Math.max(r.left - e.clientX, 0, e.clientX - r.right);
+    const dy = Math.max(r.top - e.clientY, 0, e.clientY - r.bottom);
+    if (Math.hypot(dx, dy) < 44) flee(e.clientX, e.clientY);
+  });
+  no.addEventListener('touchstart', (e) => e.preventDefault(), { passive: false });
+  // keyboard or anything else that still lands a click: never counts
+  no.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (performance.now() - lastFlee < 350) return;
+    const r = no.getBoundingClientRect();
+    flee(r.left + r.width / 2, r.top + r.height / 2);
+  });
+  no.addEventListener('contextmenu', (e) => e.preventDefault());
+
+  addEventListener('resize', () => {
+    if (!no.classList.contains('loose')) return;
+    const { minX, maxX, minY, maxY } = bounds();
+    no.style.left = Math.min(Math.max(parseFloat(no.style.left), minX), maxX) + 'px';
+    no.style.top = Math.min(Math.max(parseFloat(no.style.top), minY), maxY) + 'px';
+  });
+
+  /* "Tin" */
+  yes.addEventListener('click', () => {
+    if (accepted) return;
+    accepted = true;
+    const r = yes.getBoundingClientRect();
+    no.hidden = true;
+    const now = new Date();
+    $('#sealDate').textContent = [now.getDate(), now.getMonth() + 1].map((n) => String(n).padStart(2, '0')).join('.') + '.' + now.getFullYear();
+    $('#count').textContent = tries === 0
+      ? 'Em bấm “Tin” ngay lần đầu. Anh thương em nhất!'
+      : `Em đã thử bấm “Không tin” ${tries} lần, nhưng nút đó không chịu. Cuối cùng em vẫn tin anh.`;
+    ask.hidden = true;
+    done.hidden = false;
+    fillWall(THANKS);
+    burst(r.left + r.width / 2, r.top + r.height / 2);
+    done.scrollIntoView({ behavior: reduce.matches ? 'auto' : 'smooth', block: 'nearest' });
+  });
+
+  $('#again').addEventListener('click', () => {
+    accepted = false;
+    tries = 0;
+    no.classList.remove('loose');
+    no.style.left = no.style.top = '';
+    no.hidden = false;
+    no.textContent = labels[0];
+    btns.appendChild(no);
+    yes.style.setProperty('--grow', '1');
+    yes.classList.remove('nudge');
+    hint.textContent = '';
+    done.hidden = true;
+    ask.hidden = false;
+    fillWall(PHRASE);
+    ask.scrollIntoView({ behavior: reduce.matches ? 'auto' : 'smooth', block: 'nearest' });
+  });
+
+  /* hearts */
+  const cv = $('#fx'), ctx = cv.getContext('2d');
+  let parts = [], raf = 0;
+  function size() {
+    const dpr = Math.min(devicePixelRatio || 1, 2);
+    cv.width = innerWidth * dpr;
+    cv.height = innerHeight * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  function heart(s) {
+    ctx.beginPath();
+    ctx.moveTo(0, -0.25 * s);
+    ctx.bezierCurveTo(0, -0.55 * s, -0.5 * s, -0.55 * s, -0.5 * s, -0.2 * s);
+    ctx.bezierCurveTo(-0.5 * s, 0.1 * s, -0.1 * s, 0.3 * s, 0, 0.5 * s);
+    ctx.bezierCurveTo(0.1 * s, 0.3 * s, 0.5 * s, 0.1 * s, 0.5 * s, -0.2 * s);
+    ctx.bezierCurveTo(0.5 * s, -0.55 * s, 0, -0.55 * s, 0, -0.25 * s);
+    ctx.fill();
+  }
+  function burst(x, y) {
+    if (reduce.matches) return;
+    size();
+    const cs = getComputedStyle(document.documentElement);
+    const cols = ['--accent', '--seal', '--wall'].map((v) => cs.getPropertyValue(v).trim());
+    for (let i = 0; i < 80; i++) {
+      const a = Math.random() * Math.PI * 2, sp = 3 + Math.random() * 8;
+      parts.push({ x, y, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp - 4, s: 10 + Math.random() * 16,
+        r: Math.random() * 6, vr: (Math.random() - 0.5) * 0.2, c: cols[i % 3], life: 0, max: 90 + Math.random() * 70 });
+    }
+    for (let i = 0; i < 36; i++) {
+      parts.push({ x: Math.random() * innerWidth, y: innerHeight + 20 + Math.random() * 240,
+        vx: (Math.random() - 0.5) * 0.6, vy: -(1.2 + Math.random() * 1.8), s: 12 + Math.random() * 18,
+        r: (Math.random() - 0.5) * 0.6, vr: (Math.random() - 0.5) * 0.02, c: cols[i % 2], life: 0,
+        max: 260 + Math.random() * 120, float: true });
+    }
+    if (!raf) raf = requestAnimationFrame(tick);
+  }
+  function tick() {
+    ctx.clearRect(0, 0, innerWidth, innerHeight);
+    parts = parts.filter((p) => p.life < p.max);
+    for (const p of parts) {
+      p.life++;
+      if (!p.float) { p.vy += 0.16; p.vx *= 0.985; p.vy *= 0.985; }
+      p.x += p.vx; p.y += p.vy; p.r += p.vr;
+      const t = p.life / p.max;
+      ctx.globalAlpha = t > 0.75 ? (1 - t) / 0.25 : 1;
+      ctx.save();
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.r);
+      ctx.fillStyle = p.c;
+      heart(p.s);
+      ctx.restore();
+    }
+    ctx.globalAlpha = 1;
+    raf = parts.length ? requestAnimationFrame(tick) : 0;
+  }
+})();
+</script>
+</body>
+</html>
